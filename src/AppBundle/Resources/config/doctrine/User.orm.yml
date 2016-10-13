@@ -1,0 +1,61 @@
+AppBundle\Entity\User:
+    type: entity
+    table: Users
+    uniqueConstraints:
+        Users_email:
+            columns:
+                - Email
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: Id
+            generator:
+                strategy: IDENTITY
+    fields:
+        firstname:
+            type: string
+            nullable: false
+            length: 50
+            fixed: false
+            column: FirstName
+        lastname:
+            type: string
+            nullable: false
+            length: 50
+            fixed: false
+            column: LastName
+        email:
+            type: string
+            nullable: false
+            length: 200
+            fixed: false
+            column: Email
+        password:
+            type: string
+            nullable: false
+            length: 100
+            fixed: false
+            column: Password
+        createat:
+            type: datetime
+            nullable: false
+            default: CURRENT_TIMESTAMP
+            column: CreateAt
+        verifiedat:
+            type: datetime
+            nullable: true
+            column: VerifiedAt
+        updateat:
+            type: datetime
+            nullable: false
+            default: '0000-00-00 00:00:00'
+            column: UpdateAt
+        status:
+            type: boolean
+            nullable: false
+            default: '1'
+            column: Status
+    lifecycleCallbacks: {  }

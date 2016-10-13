@@ -1,0 +1,61 @@
+AppBundle\Entity\Article:
+    type: entity
+    table: Articles
+    indexes:
+        fk_Articles_User:
+            columns:
+                - UserId
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: Id
+            generator:
+                strategy: IDENTITY
+    fields:
+        title:
+            type: string
+            nullable: false
+            length: 50
+            fixed: false
+            column: Title
+        image:
+            type: string
+            nullable: false
+            length: 200
+            fixed: false
+            column: Image
+        body:
+            type: text
+            nullable: false
+            length: 65535
+            fixed: false
+            column: Body
+        createdat:
+            type: datetime
+            nullable: false
+            default: CURRENT_TIMESTAMP
+            column: CreatedAt
+        modifiedat:
+            type: datetime
+            nullable: false
+            default: '0000-00-00 00:00:00'
+            column: ModifiedAt
+        status:
+            type: boolean
+            nullable: false
+            default: '1'
+            column: Status
+    manyToOne:
+        userid:
+            targetEntity: User
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                UserId:
+                    referencedColumnName: Id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
