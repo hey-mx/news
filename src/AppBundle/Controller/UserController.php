@@ -26,10 +26,11 @@ class UserController extends Controller
                 ->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
             $user->setStatus(1);
+            $user->setCreateat(new \DateTime('now'));
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-            $this->redirectToRoute('home');
+            return $this->redirectToRoute('home');
         }
         return $this->render('AppBundle:User:sign_in.html.twig', array(
             'form' => $form->createView(),
