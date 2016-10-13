@@ -9,8 +9,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
 {
-    public function loginAction()
+    public function loginAction(Request $request)
     {
+        $data = array();
+        $form = $this->createFormBuilder($data);
+        $loginFormDecorator = $this->get('app.login_form');
+        $loginFormDecorator->buildFields($form);
         return $this->render('AppBundle:User:login.html.twig', array(
             // ...
         ));
