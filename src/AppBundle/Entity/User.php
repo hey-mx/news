@@ -1,13 +1,13 @@
 <?php
 
 namespace AppBundle\Entity;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var integer
@@ -247,5 +247,25 @@ class User
     public function getStatus()
     {
         return $this->status;
+    }
+
+    public function getRoles()
+    {
+        return null;
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    public function eraseCredentials()
+    {
+        return null;
     }
 }
