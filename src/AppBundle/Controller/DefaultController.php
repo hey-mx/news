@@ -10,9 +10,21 @@ class DefaultController extends Controller
 {
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', array(
-            'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
+        $message = $request->query->get('message');
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('AppBundle:Article');
+        $query = $repository->createQueryBuilder('a')
+            ->where('a.status > 1')
+            ->orderBy('a.createdat', 'DESC')
+            ->getQuery();
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1)
+        );
+        return $this->render('AppBundle:Default:home.html.twig', array(
+            'pagination' => $pagination,
+            'message' => $message,
         ));
     }
 }
