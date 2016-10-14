@@ -9,4 +9,4 @@ services:
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
     app.login_form:
         class: AppBundle\Service\LoginForm
-        arguments: ['null']
+        arguments: ['@service_container']
