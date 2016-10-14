@@ -61,13 +61,7 @@ class UserController extends Controller
                 $em->persist($user);
                 $em->flush();
                 $loginHelper = $this->get('app.login_form');
-                $loginHelper->sendActivation($user,
-                    $this->renderView(
-                        'AppBundle:User:email_activation.html.twig', array(
-                            'userid' => $user->getId(),
-                            'username' => $user->getFirstname(),
-                        )
-                    ), $this->get('mailer'));
+                $loginHelper->sendActivation($user);
                 return $this->redirectToRoute('home');
             } catch(\Exception $e) {
                 //$error = 'The email is alredy in use. Please try with another one';
