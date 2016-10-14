@@ -14,7 +14,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Article');
         $query = $repository->createQueryBuilder('a')
-            ->where('a.status > 1')
+            ->where('a.status = 1')
             ->orderBy('a.createdat', 'DESC')
             ->getQuery();
         $paginator = $this->get('knp_paginator');
