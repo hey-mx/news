@@ -7,6 +7,7 @@ use AppBundle\Form\UserType;
 use AppBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class UserController extends Controller
 {
@@ -30,7 +31,7 @@ class UserController extends Controller
                 $password = $encoder->encodePassword($data['password'],
                 $user->getSalt());
                 if ($password == $user->getPassword()) {
-                    $session = $this->getSession();
+                    $session = new Session();
                     $session->set('user', $user->getId());
                     return $this->redirectToRoute('home');
                 }
@@ -62,6 +63,8 @@ class UserController extends Controller
                 $em->flush();
                 $loginHelper = $this->get('app.login_form');
                 $loginHelper->sendActivation($user);
+                $session = new Session();
+                $session->set('user', $user->getId());
                 return $this->redirectToRoute('home');
             } catch(\Exception $e) {
                 //$error = 'The email is alredy in use. Please try with another one';
@@ -87,6 +90,8 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
             $message = 'Now you are able to publish content';
+            $session = new Session();
+            $session->set('user', $user->getId());
         } elseif (!empty($user->getVerifiedat())) {
             $message = 'Your account is alredy verified';
         }
