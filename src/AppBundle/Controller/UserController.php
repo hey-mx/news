@@ -22,10 +22,8 @@ class UserController extends Controller
         if ($request->isMethod('POST') && $form->isValid()) {
             $data = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $user = $em->getRepository('AppBundle:User')->findOneBy(array(
-                'email' => $data['email'],
-                'status' => 1
-            ));
+            $user = $em->getRepository('AppBundle:User')
+                ->getActiveByEmail($data['email']);
             if (is_object($user)) {
                 $encoder = new MessageDigestPasswordEncoder('sha1');
                 $password = $encoder->encodePassword($data['password'],
@@ -81,10 +79,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $message = 'Invalid account';
-        $user = $em->getRepository('AppBundle:User')->findOneBy(array(
-            'id' => $userid,
-            'status' => 1
-        ));
+        $user = $em->getRepository('AppBundle:User')->getActiveById($userid);
         if (is_object($user) && empty($user->getVerifiedat())) {
             $user->setVerifiedat(new \DateTime('now'));
             $em->persist($user);
