@@ -8,3 +8,8 @@ login:
 sign_in:
     path:     /signin
     defaults: { _controller: AppBundle:User:signIn }
+verify_user:
+    path:   /verify/{userid}
+    defaults: {_controller: AppBundle:User:verify}
+    requirements:
+        userid: \d{1,}

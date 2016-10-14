@@ -1,0 +1,15 @@
+<html>
+    <body>
+        Welcome {{username}},
+        <p>
+            Your account was created into our web site, in order to finish your register process
+            we need verify your account clicking in the next link. 
+        </p>
+        <a href="{{ url( 'verify_user', {'userid': userid} ) }}">
+            {{ url( 'verify_user', {'userid': userid} ) }}    
+        </a>
+        <p>
+            Thank you.
+        </p>
+    </body>
+</html>

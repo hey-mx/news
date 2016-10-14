@@ -12,4 +12,7 @@
     {{form_row(form.password.second)}}
     <button type="submit">Register!</button>
 {{form_end(form)}}
+{% if error is not empty %}
+    <div class="error">{{error}}</div>
+{% endif %}
 {% endblock %}
