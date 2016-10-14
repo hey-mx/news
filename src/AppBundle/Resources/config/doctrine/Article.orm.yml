@@ -23,7 +23,7 @@ AppBundle\Entity\Article:
             column: Title
         image:
             type: string
-            nullable: false
+            nullable: true
             length: 200
             fixed: false
             column: Image
@@ -40,8 +40,7 @@ AppBundle\Entity\Article:
             column: CreatedAt
         modifiedat:
             type: datetime
-            nullable: false
-            default: '0000-00-00 00:00:00'
+            nullable: true
             column: ModifiedAt
         status:
             type: boolean
